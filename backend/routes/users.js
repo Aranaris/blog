@@ -14,5 +14,6 @@ router.post('/create', user_controller.user_create_post);
 // GET user by id
 // UPDATE user by id
 // DELETE user by id
+router.post('/:id/delete', user_controller.user_delete_post);
 
 module.exports = router;

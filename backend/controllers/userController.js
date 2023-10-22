@@ -16,4 +16,8 @@ exports.user_create_post = asyncHandler(async(req, res, next) => {
     res.send('Create User POST not implemented');
 });
 
+//update or remove user
+exports.user_delete_post = asyncHandler(async(req, res, next) => {
+    res.send('Delete User POST not implemented');
+})
 
