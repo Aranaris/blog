@@ -11,6 +11,6 @@ const userSchema = new Schema({
     lastname: {type: String},
     dateofbirth: {type: Date},
     role: {type: String, required: true, default: 'new user'},
-})
+}, opts);
 
-module.exports = mongoose.Model('User', userSchema);
+module.exports = mongoose.model('User', userSchema);
