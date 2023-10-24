@@ -16,6 +16,11 @@ mongoose.set('strictQuery', false);
 require('dotenv').config();
 mongoDB = process.env.MONGODB_URI;
 
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true });
+}
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

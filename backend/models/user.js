@@ -10,6 +10,7 @@ const userSchema = new Schema({
     firstname: {type: String, required: true},
     lastname: {type: String},
     dateofbirth: {type: Date},
+    lastaction: {type: Date, default: new Date()},
     role: {type: String, required: true, default: 'new user'},
 }, opts);
 
