@@ -11,4 +11,4 @@ const commentSchema = new Schema({
     commentdate: {type: Date, required: true, default: new Date()},
 }, opts);
 
-module.exports = mongoose.Model('Comment', postSchema);
+module.exports = mongoose.model('Comment', commentSchema);

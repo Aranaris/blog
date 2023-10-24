@@ -12,4 +12,4 @@ const postSchema = new Schema({
     status: {type: String, enum: ['draft', 'public', 'restricted'], default: 'draft', required: true},
 }, opts);
 
-module.exports = mongoose.Model('Post', postSchema);
+module.exports = mongoose.model('Post', postSchema);
