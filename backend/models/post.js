@@ -9,6 +9,7 @@ const postSchema = new Schema({
     title: {type: String, required: true},
     content: {type: String, required: true, minLength: 5},
     postdate: {type: Date, required: true, default: new Date()},
-})
+    status: {type: String, enum: ['draft', 'public', 'restricted'], default: 'draft', required: true},
+}, opts);
 
 module.exports = mongoose.Model('Post', postSchema);
