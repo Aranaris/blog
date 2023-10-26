@@ -1,11 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+interface User {
+  username: string,
+  lastaction: string,
+}
+
 function App() {
   const [count, setCount] = useState(0)
+  const [userList, setUserList] = useState<Array<User>>([])
 
+  useEffect(() => {
+    async function getUsers() {
+      fetch('http://localhost:3000/users/', { method: 'GET', mode: 'cors' })
+        .then((response) => response.json())
+        .then((users) => setUserList(users))
+    }
+    getUsers()
+
+  }, [])
+  
   return (
     <>
       <div>
@@ -21,6 +37,9 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
+        {userList.map((user, key) => (
+          <p key={key}>Username: {user.username} || Last Login: {user.lastaction}</p>
+        ))}
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
