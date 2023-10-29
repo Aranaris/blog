@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { UserAPI } from '../apis/UserAPI.tsx'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -13,12 +14,15 @@ function App() {
   const [userList, setUserList] = useState<Array<User>>([])
 
   useEffect(() => {
-    async function getUsers() {
-      fetch('http://localhost:3000/users/', { method: 'GET', mode: 'cors' })
-        .then((response) => response.json())
-        .then((users) => setUserList(users))
-    }
-    getUsers()
+    // async function getUsers() {
+    //   fetch('http://localhost:3000/users/', { method: 'GET', mode: 'cors' })
+    //     .then((response) => response.json())
+    //     .then((users) => setUserList(users))
+    // }
+    // getUsers()
+    UserAPI.getUsers().then((users) => {
+      setUserList(users)
+    })
 
   }, [])
   
