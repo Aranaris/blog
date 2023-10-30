@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 import { UserAPI } from '../apis/UserAPI.tsx'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 interface User {
@@ -12,30 +10,23 @@ interface User {
 function App() {
   const [count, setCount] = useState(0)
   const [userList, setUserList] = useState<Array<User>>([])
+  const [currentUser, setCurrentUser] = useState<User>()
 
   useEffect(() => {
-    // async function getUsers() {
-    //   fetch('http://localhost:3000/users/', { method: 'GET', mode: 'cors' })
-    //     .then((response) => response.json())
-    //     .then((users) => setUserList(users))
-    // }
-    // getUsers()
-    UserAPI.getUsers().then((users) => {
+    UserAPI.getAllUsers().then((users) => {
       setUserList(users)
     })
 
   }, [])
   
+  const updateUser = async function (id:string) {
+    UserAPI.getUserByID(id).then((user) => {
+      setCurrentUser(user)
+    })
+  }
+
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
@@ -47,6 +38,9 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
+        <button onClick={() => updateUser('6538582c3f068a67f6a901bf')}>
+          current user is {currentUser?.username}
+        </button>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
