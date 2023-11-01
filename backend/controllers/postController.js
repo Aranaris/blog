@@ -8,6 +8,13 @@ exports.post_list = asyncHandler(async(req, res, next) => {
     res.send(allPosts);
 });
 
+//get post by id
+exports.post_get = asyncHandler(async(req, res, next) => {
+    const post = await Post.findById(req.params.id).exec();
+    res.json(post);
+});
+
+
 //create post functions
 exports.post_create_get = asyncHandler(async(req, res, next) => {
     res.send('Create Post GET not implemented');
@@ -20,7 +27,7 @@ exports.post_create_post = asyncHandler(async(req, res, next) => {
 //update or remove post
 exports.post_delete_post = asyncHandler(async(req, res, next) => {
     res.send('Delete Post POST not implemented');
-})
+});
 
 //getting comments for post
 exports.post_comments_get = asyncHandler(async(req, res, next) => {

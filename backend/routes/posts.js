@@ -19,5 +19,6 @@ router.post('/:id/delete', post_controller.post_delete_post);
 router.get('/:id/comments', post_controller.post_comments_get);
 
 // GET post by id
+router.get('/:id', post_controller.post_get);
 
 module.exports = router;

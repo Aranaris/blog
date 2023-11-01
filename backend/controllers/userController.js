@@ -46,10 +46,10 @@ exports.user_delete_post = asyncHandler(async(req, res, next) => {
     const user = await User.findById(req.params.id).exec();
     await User.findByIdAndRemove(req.params.id);
     res.json(user);
-})
+});
 
 exports.user_get = asyncHandler(async(req, res, next) => {
     const user = await User.findById(req.params.id).exec();
     res.json(user);
-})
+});
 
