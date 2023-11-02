@@ -1,12 +1,13 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Button } from "./components/Button";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import App from "./App";
 
 function RouteSwitch() {
     return (
         <BrowserRouter>
             <nav>
-                <Button value="Home" children="test child"></Button>
+                <Link to="/">Home</Link>
+                <Link to="/posts/">Posts</Link>
+                <Link to="/users/">Users</Link>
             </nav>
             <Routes>
                 <Route path="/" element={<App />}/>
