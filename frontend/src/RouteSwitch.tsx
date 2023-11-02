@@ -1,12 +1,13 @@
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import App from "./App";
+import logo from "./assets/WLogo_Final.png"
 
 function RouteSwitch() {
     return (
         <BrowserRouter>
             <nav>
-                <Link to="/">Home</Link>
-                <Link to="/posts/">Posts</Link>
+                <Link to="/"><img id="logo" src={logo} alt="logo" /></Link>
+                <Link to="/posts/">Blog</Link>
                 <Link to="/users/">Users</Link>
             </nav>
             <Routes>

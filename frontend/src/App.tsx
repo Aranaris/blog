@@ -61,7 +61,7 @@ function App() {
         <button onClick={() => getUser('6538582c3f068a67f6a901bf')}>
           current user is {currentUser?.username}
         </button>
-        <h3>Users</h3>
+        <h3>Posts</h3>
         {postList.map((post, key) => (
           <p key={key}>ID: {post._id} || Username: {post.user.username} || Title: {post.title} || Content: {post.content} || Post Date: {post.postdate}</p>
         ))}

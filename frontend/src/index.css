@@ -74,3 +74,8 @@ nav {
   justify-content: flex-start;
   gap: 20px;
 }
+
+#logo{
+  max-height: 25px;
+  border-radius: 50%;
+}
