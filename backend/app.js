@@ -15,11 +15,11 @@ var app = express();
 var mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 require('dotenv').config();
-mongoDB = process.env.MONGODB_URI;
+var mongoDB = process.env.MONGODB_URI;
 
 main().catch((err) => console.log(err));
 async function main() {
-  await mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true });
+	await mongoose.connect(mongoDB, {'useUnifiedTopology': true, 'useNewUrlParser': true});
 }
 
 // view engine setup
@@ -28,15 +28,15 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({'extended': false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //enable CORS for routes
 var corsOptions = {
-  origin: process.env.FRONTEND_ORIGIN_URL,
-  optionsSuccessStatus: 200
-}
+	'origin': process.env.FRONTEND_ORIGIN_URL,
+	'optionsSuccessStatus': 200,
+};
 
 app.use('/', indexRouter);
 app.use('/users', cors(corsOptions), usersRouter);
@@ -44,18 +44,18 @@ app.use('/posts', cors(corsOptions), postsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+	next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+	// set locals, only providing error in development
+	res.locals.message = err.message;
+	res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+	// render the error page
+	res.status(err.status || 500);
+	res.render('error');
 });
 
 module.exports = app;
