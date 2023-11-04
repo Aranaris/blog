@@ -2,6 +2,8 @@ import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import App from "./App";
 import logo from "./assets/WLogo_Final.png"
 import Blog from "./components/Blog";
+import Archive from "./components/Archive";
+import ArchivedPost from "./components/ArchivedPost";
 
 function RouteSwitch() {
     return (
@@ -13,8 +15,9 @@ function RouteSwitch() {
             </nav>
             <Routes>
                 <Route path="/" element={<Blog />}/>
-                <Route path="/posts/" element={<App />}/>
+                <Route path="/posts/" element={<Archive />}/>
                 <Route path="/users/" element={<App />}/>
+                <Route path="/posts/:id" element={<ArchivedPost />}></Route>
             </Routes>
         </BrowserRouter>
     )
