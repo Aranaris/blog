@@ -7,6 +7,7 @@ export interface Post {
     title: string,
     content: string,
     postdate: string,
+    status: string,
   }
 
 export const BlogpostAPI = {

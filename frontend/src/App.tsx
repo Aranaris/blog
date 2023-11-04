@@ -45,7 +45,7 @@ function App() {
 				</button>
 				<h3>Posts</h3>
 				{postList.map((post, key) => (
-					<p key={key}>ID: {post._id} || Username: {post.user.username} || Title: {post.title} || Content: {post.content} || Post Date: {post.postdate}</p>
+					<p key={key}>ID: {post._id} || Username: {post.user.username} || Title: {post.title} || Content: {post.content} || Post Date: {post.postdate} || Status: {post.status}</p>
 				))}
 				<button onClick={() => getPost('65385888884b774dd387ac8f')}>
           current post is {currentPost?.title}
