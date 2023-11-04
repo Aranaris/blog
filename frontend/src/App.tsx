@@ -1,24 +1,9 @@
 import { useEffect, useState } from 'react'
-import { UserAPI } from '../apis/UserAPI.tsx'
-import { BlogpostAPI } from '../apis/BlogpostAPI.tsx'
+import { UserAPI, User } from '../apis/UserAPI.tsx'
+import { BlogpostAPI, Post } from '../apis/BlogpostAPI.tsx'
 import './App.css'
 
-interface User {
-  _id: string,
-  username: string,
-  lastaction: string,
-}
-
-interface Post {
-  _id: string,
-  user: User,
-  title: string,
-  content: string,
-  postdate: string,
-}
-
 function App() {
-  const [count, setCount] = useState(0)
   const [userList, setUserList] = useState<Array<User>>([])
   const [postList, setPostList] = useState<Array<Post>>([])
   const [currentUser, setCurrentUser] = useState<User>()
@@ -49,11 +34,8 @@ function App() {
 
   return (
     <>
-      <h1>Vite + React</h1>
+      <header>App.tsx</header>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
         <h3>Users</h3>
         {userList.map((user, key) => (
           <p key={key}>ID: {user._id} || Username: {user.username} || Last Login: {user.lastaction}</p>

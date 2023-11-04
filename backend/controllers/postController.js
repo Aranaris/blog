@@ -14,6 +14,12 @@ exports.post_get = asyncHandler(async(req, res, next) => {
     res.json(post);
 });
 
+//get most recent post
+exports.post_get_latest = asyncHandler(async(req, res, next) => {
+    const post = await Post.find().where({ status: 'public' }).sort('-postdate').limit(1).populate('user').exec();
+    res.json(post[0]);
+})
+
 
 //create post functions
 exports.post_create_get = asyncHandler(async(req, res, next) => {

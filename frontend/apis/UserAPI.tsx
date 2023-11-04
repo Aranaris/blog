@@ -1,5 +1,11 @@
 import { api } from "./configs/fetchConfigs";
 
+export interface User {
+  _id: string,
+  username: string,
+  lastaction: string,
+}
+
 export const UserAPI = {
   getAllUsers: async function() {
     const response = fetch(`${api.baseURL}users/`, { method: 'GET', mode: 'cors' })

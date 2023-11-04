@@ -18,6 +18,9 @@ router.post('/:id/delete', post_controller.post_delete_post);
 // GET all comments for post
 router.get('/:id/comments', post_controller.post_comments_get);
 
+// GET latest public post
+router.get('/latest', post_controller.post_get_latest);
+
 // GET post by id
 router.get('/:id', post_controller.post_get);
 
