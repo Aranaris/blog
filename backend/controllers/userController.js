@@ -53,3 +53,24 @@ exports.user_get = asyncHandler(async(req, res, next) => {
 	res.json(user);
 });
 
+//auth
+
+exports.user_authenticate_post = asyncHandler(async(req, res, next) => {
+	res.json('Authenticate User POST not implemented');
+});
+
+// passport.authenticate('local', {
+// 	'successReturnToOrRedirect': '/auth/log-in',
+// 	'failureRedirect': '/auth/log-in',
+// 	'failureFlash': true,
+// 	'keepSessionInfo': true, // using for now, appears to be an active PR https://github.com/jaredhanson/passport/pull/941
+// });
+
+exports.user_logout_post = asyncHandler(async (req, res, next) => {
+	req.logout((err) => {
+		if (err) {
+			return next(err);
+		}
+		res.redirect('/');
+	});
+});
