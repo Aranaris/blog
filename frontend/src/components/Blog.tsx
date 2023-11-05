@@ -5,9 +5,7 @@ function Blog() {
 	const [currentPost, setCurrentPost] = useState<Post>();
 
 	useEffect(() => {
-		BlogpostAPI.getLatestPost().then((post) => {
-			setCurrentPost(post);
-		});
+		BlogpostAPI.getLatestPost().then(setCurrentPost);
 	}, []);
 
 	return (
