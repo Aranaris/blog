@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
-import {UserAPI, User} from '../apis/UserAPI.tsx';
-import {BlogpostAPI, Post} from '../apis/BlogpostAPI.tsx';
+import {UserAPI, User} from '../apis/UserAPI.ts';
+import {BlogpostAPI, Post} from '../apis/BlogpostAPI.ts';
 import './App.css';
 
 function App() {
