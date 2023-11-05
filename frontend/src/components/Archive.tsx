@@ -3,12 +3,10 @@ import {useEffect, useState} from 'react';
 import * as reactRouterDom from 'react-router-dom';
 
 function Archive() {
-	const [postList, setPostList] = useState<Array<Post>>([]);
+	const [postList, setPostList] = useState<Post[]>([]);
 
 	useEffect(() => {
-		BlogpostAPI.getAllPosts().then((posts) => {
-			setPostList(posts);
-		});
+		BlogpostAPI.getAllPosts().then(setPostList);
 	}, []);
 
 	return (

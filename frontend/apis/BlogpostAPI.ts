@@ -11,19 +11,18 @@ export interface Post {
   }
 
 export const BlogpostAPI = {
-	'getAllPosts': async function() {
-		const response = fetch(`${api.baseURL}posts/`, {'method': 'GET', 'mode': 'cors'})
-			.then((response) => response.json());
-		return response;
+	'getAllPosts': async function():Promise<Post[]> {
+		return await get('posts');
 	},
-	'getPostByID': async function(id:string) {
-		const response = fetch(`${api.baseURL}posts/${id}`, {'method': 'GET', 'mode': 'cors'})
-			.then((response) => response.json());
-		return response;
+	'getPostByID': async function(id:string):Promise<Post> {
+		return await get(`posts/${id}`);
 	},
-	'getLatestPost': async function() {
-		const response = fetch(`${api.baseURL}posts/latest`, {'method': 'GET', 'mode': 'cors'})
-			.then((response) => response.json());
-		return response;
+	'getLatestPost': async function():Promise<Post> {
+		return await get('posts/latest');
 	},
+};
+
+const get = async function(path: string) {
+	const response = await fetch(api.baseURL + path, {'method': 'GET', 'mode': 'cors'});
+	return await response.json();
 };
