@@ -11,7 +11,7 @@ exports.post_list = asyncHandler(async(req, res, next) => {
 
 //get post by id
 exports.post_get = asyncHandler(async(req, res, next) => {
-	const post = await Post.findById(req.params.id).exec();
+	const post = await Post.findById(req.params.id).populate('user').exec();
 	res.json(post);
 });
 
@@ -35,9 +35,8 @@ exports.post_create_post = asyncHandler(async(req, res, next) => {
 		'content': req.body.content,
 		'status': 'draft',
 	});
-	// await post.save();
-	// res.json(post);
-	console.log(post);
+	await post.save();
+	res.json(post);
 });
 
 //update or remove post

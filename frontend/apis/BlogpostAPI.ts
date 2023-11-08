@@ -1,5 +1,5 @@
 import {User} from './UserAPI';
-import {get} from './common';
+import {get, post} from './common';
 
 export interface Post {
     _id: string,
@@ -19,5 +19,8 @@ export const BlogpostAPI = {
 	},
 	'getLatestPost': async function():Promise<Post> {
 		return await get('posts/latest');
+	},
+	'createNewPost': async function (data:object):Promise<Post> {
+		return await post('posts/create', data);
 	},
 };

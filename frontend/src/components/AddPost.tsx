@@ -1,5 +1,6 @@
 import '../styles/AddPost.css';
 import {api} from '../../apis/configs/fetchConfigs';
+import {BlogpostAPI} from '../../apis/BlogpostAPI';
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
@@ -18,12 +19,13 @@ function AddPost() {
 
 	function onSubmitHandler (event:React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		const post = {
+		const formData = {
 			'title': postTitle,
 			'content': postContent,
 		};
-		navigate('/');
+		BlogpostAPI.createNewPost(formData).then((post)=> navigate(`/posts/${post._id}`));
 	}
+
 	return (
 		<div className="Add Post">
 			<header>Add New Post</header>
