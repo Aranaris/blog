@@ -1,5 +1,6 @@
 const Post = require('../models/post');
 const Comment = require('../models/comment');
+const User = require('../models/user');
 const asyncHandler = require('express-async-handler');
 
 //display posts
@@ -27,7 +28,16 @@ exports.post_create_get = asyncHandler(async(req, res, next) => {
 });
 
 exports.post_create_post = asyncHandler(async(req, res, next) => {
-	res.send('Create Post POST not implemented');
+	const user = await User.findOne({'username': 'testuser'}).exec();
+	const post = new Post({
+		'user': user,
+		'title': req.body.title,
+		'content': req.body.content,
+		'status': 'draft',
+	});
+	// await post.save();
+	// res.json(post);
+	console.log(post);
 });
 
 //update or remove post
