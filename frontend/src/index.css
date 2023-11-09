@@ -57,6 +57,11 @@ nav {
   font-weight: bold;
 }
 
+li, ul, ol{
+	list-style: none;
+	padding-left: 0;
+}
+
 #logo {
   max-height: 25px;
   border-radius: 50%;

@@ -7,6 +7,7 @@ import ArchivedPost from './components/ArchivedPost';
 import LoginPage from './components/LoginPage';
 import AddPost from './components/AddPost';
 import AddUser from './components/AddUser';
+import UserProfile from './components/UserProfile';
 
 function RouteSwitch() {
 	return (
@@ -26,6 +27,7 @@ function RouteSwitch() {
 				<Route path="/users/" element={<App />}/>
 				<Route path="/users/add" element={<AddUser />}/>
 				<Route path="/login/" element={<LoginPage />}/>
+				<Route path="/users/:id" element={<UserProfile />}></Route>
 				<Route path="/posts/:id" element={<ArchivedPost />}></Route>
 			</Routes>
 		</BrowserRouter>
