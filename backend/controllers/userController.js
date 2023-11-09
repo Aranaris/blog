@@ -2,6 +2,7 @@ const User = require('../models/user');
 const asyncHandler = require('express-async-handler');
 const {body, validationResult} = require('express-validator');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 //display users
 exports.user_list = asyncHandler(async(req, res, next) => {
@@ -61,6 +62,7 @@ exports.user_get = asyncHandler(async(req, res, next) => {
 
 exports.user_authenticate_post = asyncHandler(async(req, res, next) => {
 	const {username, password} = req.body;
+	const defaultError = {'message': 'Invalid Credentials'};
 	if (!username || !password) {
 		return res.status(400).json({
 			'message': 'Username or Password not present',
@@ -70,15 +72,21 @@ exports.user_authenticate_post = asyncHandler(async(req, res, next) => {
 		if (user) {
 			await bcrypt.compare(password, user.password, function(err, result) {
 				if(result) {
-					res.json('Successful Authentication!');
+					const maxAge = 3 * 60 * 60;
+					const token = jwt.sign(
+						{'id': user.id, username},
+						process.env.JWT_SECRET,
+						{
+							'expiresIn': maxAge,
+						},
+					);
+					res.status(200).json(token);
 				} else {
-					res.json(err);
+					res.status(403).json(defaultError);
 				}
 			});
 		} else {
-			return res.status(400).json({
-				'message': 'Error',
-			});
+			return res.status(403).json(defaultError);
 		}
 	}
 });

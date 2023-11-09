@@ -17,5 +17,9 @@ export const post = async function(path: string, data: object) {
 			'Content-Type': 'application/json',
 		},
 		'body':JSON.stringify(data)});
-	return await response.json();
+	if (!response.ok) {
+		throw new Error('HTTP status ' + response.status);
+	} else {
+		return response;
+	}
 };

@@ -15,10 +15,11 @@ export const UserAPI = {
 	'getUserByID': async function(id:string):Promise<User> {
 		return await get(`users/${id}`);
 	},
-	'createUser': async function(data:object):Promise<User> {
-		return await post('users/create', data);
+	'createUser': async function(data:object) {
+		return await post('users/create', data).then(response => response.json());
 	},
-	'loginUser': async function(username:string, password:string):Promise<string> {
-		return await post('auth/login', {'username':username, 'password':password});
+	'loginUser': async function(username:string, password:string) {
+		const response =  await post('auth/login', {'username':username, 'password':password});
+		return response;
 	},
 };
