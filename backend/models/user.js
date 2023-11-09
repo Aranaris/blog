@@ -13,7 +13,7 @@ const userSchema = new Schema({
 		'minLength': 7,
 		validate(value) {
 			if(value.toLowerCase().includes('password')){
-				throw new console.error('Password cannot be password');
+				throw new mongoose.Error('Password cannot be password');
 			}
 		},
 		'default': '',

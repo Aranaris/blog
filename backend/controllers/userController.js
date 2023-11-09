@@ -34,13 +34,12 @@ exports.user_create_post = [
 			'firstname': req.body['firstname'],
 			'password': req.body['password'],
 		});
-		console.log(user);
 		if (!errors.isEmpty()){
 			res.json({
 				'errors': errors.array(),
 			});
 		} else {
-			// await user.save();
+			await user.save().catch(error => console.log(error));
 			res.json(user);
 		}
 	})];
