@@ -6,6 +6,7 @@ import Archive from './components/Archive';
 import ArchivedPost from './components/ArchivedPost';
 import LoginPage from './components/LoginPage';
 import AddPost from './components/AddPost';
+import AddUser from './components/AddUser';
 
 function RouteSwitch() {
 	return (
@@ -16,12 +17,14 @@ function RouteSwitch() {
 				<Link to="/users/">About</Link>
 				<Link to="/login/">Log In</Link>
 				<Link to="/posts/add">Add Post</Link>
+				<Link to="/users/add">Add User</Link>
 			</nav>
 			<Routes>
 				<Route path="/" element={<Blog />}/>
 				<Route path="/posts/" element={<Archive />}/>
 				<Route path="/posts/add" element={<AddPost />}/>
 				<Route path="/users/" element={<App />}/>
+				<Route path="/users/add" element={<AddUser />}/>
 				<Route path="/login/" element={<LoginPage />}/>
 				<Route path="/posts/:id" element={<ArchivedPost />}></Route>
 			</Routes>

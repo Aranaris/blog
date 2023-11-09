@@ -1,5 +1,4 @@
 import '../styles/AddPost.css';
-import {api} from '../../apis/configs/fetchConfigs';
 import {BlogpostAPI} from '../../apis/BlogpostAPI';
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
@@ -29,7 +28,7 @@ function AddPost() {
 	return (
 		<div className="Add Post">
 			<header>Add New Post</header>
-			<form id="add-post-form" method='POST' action={`${api.baseURL}posts/create`} onSubmit={onSubmitHandler}>
+			<form id="add-post-form" onSubmit={onSubmitHandler}>
 				<label htmlFor='post-title'>
 					Post Title:
 				</label>
