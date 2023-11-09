@@ -9,11 +9,15 @@ exports.user_list = asyncHandler(async(req, res, next) => {
 });
 
 //create user functions
-exports.user_create_get = [
+exports.user_create_get = asyncHandler(async(req, res, next) => {
+	res.json('Create User GET not implemented');
+});
+
+exports.user_create_post = [
 	body('username')
 		.trim()
-		.isLength({'min': 1})
-		.withMessage('Username must be specified.')
+		.isLength({'min': 3})
+		.withMessage('Username must be more than 2 characters.')
 		.isAlphanumeric()
 		.withMessage('Invalid characters.'),
 	body('firstname')
@@ -28,18 +32,18 @@ exports.user_create_get = [
 		const user = new User({
 			'username': req.body['username'],
 			'firstname': req.body['firstname'],
+			'password': req.body['password'],
 		});
+		console.log(user);
 		if (!errors.isEmpty()){
-			res.json(errors.array());
+			res.json({
+				'errors': errors.array(),
+			});
 		} else {
-			await user.save();
+			// await user.save();
 			res.json(user);
 		}
 	})];
-
-exports.user_create_post = asyncHandler(async(req, res, next) => {
-	res.send('Create User POST not implemented');
-});
 
 //update or remove user
 exports.user_delete_post = asyncHandler(async(req, res, next) => {

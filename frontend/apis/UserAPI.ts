@@ -1,10 +1,11 @@
-import {get,post} from './common';
+import {get, post, Error} from './common';
 
 export interface User {
   _id: string,
   username: string,
   firstname: string,
   lastaction: string,
+  errors?: Array<Error>,
 }
 
 export const UserAPI = {
@@ -15,6 +16,6 @@ export const UserAPI = {
 		return await get(`users/${id}`);
 	},
 	'createUser': async function(data:object):Promise<User> {
-		return await post('users/add', data);
+		return await post('users/create', data);
 	},
 };

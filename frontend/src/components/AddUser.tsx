@@ -1,5 +1,5 @@
 import '../styles/AddUser.css';
-import {UserAPI} from '../../apis/UserAPI';
+import {UserAPI, User} from '../../apis/UserAPI';
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
@@ -8,6 +8,7 @@ function AddUser() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [userFirstName, setUserFirstName] = useState('');
+	const [errors, setErrors] = useState<User['errors']>([]);
 
 	function onUsernameChange(event:React.FormEvent<HTMLInputElement>) {
 		setUsername(event.currentTarget.value);
@@ -28,7 +29,14 @@ function AddUser() {
 			'password': password,
 			'firstname': userFirstName,
 		};
-		UserAPI.createUser(formData).then((user)=> navigate(`/users/${user._id}`));
+		UserAPI.createUser(formData)
+			.then((user)=> {
+				if(typeof user.errors != 'undefined') {
+					setErrors(user.errors);
+				} else {
+					navigate(`/users/${user._id}`);
+				}
+			});
 	}
 
 	return (
@@ -47,8 +55,12 @@ function AddUser() {
 					First Name:
 				</label>
 				<input className='firstname' id='new-firstname' type='text' onChange={onFirstNameChange}></input>
+				{typeof errors !== 'undefined' && errors.map((error, key) => (
+					<div key={key}>{error.msg}</div>
+				))}
 				<button type='submit' >Create User</button>
 			</form>
+
 		</div>
 	);
 }

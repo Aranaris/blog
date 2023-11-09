@@ -1,5 +1,5 @@
 import '../styles/AddPost.css';
-import {BlogpostAPI} from '../../apis/BlogpostAPI';
+import {BlogpostAPI, Post} from '../../apis/BlogpostAPI';
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
@@ -7,6 +7,7 @@ function AddPost() {
 	const navigate = useNavigate();
 	const [postTitle, setPostTitle] = useState('');
 	const [postContent, setPostContent] = useState('');
+	const [errors, setErrors] = useState<Post['errors']>([]);
 
 	function onTitleChange(event:React.FormEvent<HTMLInputElement>) {
 		setPostTitle(event.currentTarget.value);
@@ -22,7 +23,13 @@ function AddPost() {
 			'title': postTitle,
 			'content': postContent,
 		};
-		BlogpostAPI.createNewPost(formData).then((post)=> navigate(`/posts/${post._id}`));
+		BlogpostAPI.createNewPost(formData).then((post)=> {
+			if(typeof post.errors != 'undefined') {
+				setErrors(post.errors);
+			} else {
+				navigate(`/posts/${post._id}`);
+			}
+		});
 	}
 
 	return (
@@ -37,6 +44,9 @@ function AddPost() {
 					Content:
 				</label>
 				<textarea className='content-text' id='post-content' onChange={onContentChange}></textarea>
+				{typeof errors !== 'undefined' && errors.map((error, key) => (
+					<div key={key}>{error.msg}</div>
+				))}
 				<button type='submit' >Save and Submit</button>
 			</form>
 		</div>

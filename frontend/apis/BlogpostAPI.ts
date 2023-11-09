@@ -1,5 +1,5 @@
 import {User} from './UserAPI';
-import {get, post} from './common';
+import {get, post, Error} from './common';
 
 export interface Post {
     _id: string,
@@ -8,6 +8,7 @@ export interface Post {
     content: string,
     postdate: string,
     status: string,
+	errors?: Array<Error>,
   }
 
 export const BlogpostAPI = {
