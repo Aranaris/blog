@@ -18,4 +18,7 @@ export const UserAPI = {
 	'createUser': async function(data:object):Promise<User> {
 		return await post('users/create', data);
 	},
+	'loginUser': async function(username:string, password:string):Promise<string> {
+		return await post('auth/login', {'username':username, 'password':password});
+	},
 };

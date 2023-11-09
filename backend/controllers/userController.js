@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const asyncHandler = require('express-async-handler');
 const {body, validationResult} = require('express-validator');
+const bcrypt = require('bcrypt');
 
 //display users
 exports.user_list = asyncHandler(async(req, res, next) => {
@@ -59,7 +60,27 @@ exports.user_get = asyncHandler(async(req, res, next) => {
 //auth
 
 exports.user_authenticate_post = asyncHandler(async(req, res, next) => {
-	res.json('Authenticate User POST not implemented');
+	const {username, password} = req.body;
+	if (!username || !password) {
+		return res.status(400).json({
+			'message': 'Username or Password not present',
+		});
+	} else {
+		const user = await User.findOne({username});
+		if (user) {
+			await bcrypt.compare(password, user.password, function(err, result) {
+				if(result) {
+					res.json('Successful Authentication!');
+				} else {
+					res.json(err);
+				}
+			});
+		} else {
+			return res.status(400).json({
+				'message': 'Error',
+			});
+		}
+	}
 });
 
 // passport.authenticate('local', {
