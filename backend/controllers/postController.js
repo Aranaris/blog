@@ -22,12 +22,6 @@ exports.post_get_latest = asyncHandler(async(req, res, next) => {
 	res.json(post[0]);
 });
 
-
-//create post functions
-exports.post_create_get = asyncHandler(async(req, res, next) => {
-	res.send('Create Post GET not implemented');
-});
-
 exports.post_create_post = asyncHandler(async(req, res, next) => {
 	const user = await User.findOne({'username': 'testuser'}).exec();
 	const post = new Post({
@@ -42,7 +36,8 @@ exports.post_create_post = asyncHandler(async(req, res, next) => {
 
 //update or remove post
 exports.post_delete_post = asyncHandler(async(req, res, next) => {
-	res.send('Delete Post POST not implemented');
+	const post = await Post.findByIdAndDelete(req.params.id).exec();
+	res.json(post);
 });
 
 //getting comments for post

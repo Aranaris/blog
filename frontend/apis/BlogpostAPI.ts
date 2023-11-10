@@ -24,4 +24,7 @@ export const BlogpostAPI = {
 	'createNewPost': async function (data:object) {
 		return await post('posts/create', data);
 	},
+	'deletePost': async function(id:string):Promise<Post> {
+		return await post(`posts/${id}/delete`);
+	},
 };

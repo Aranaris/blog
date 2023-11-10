@@ -13,7 +13,7 @@ export const get = async function(path: string) {
 	return await response.json();
 };
 
-export const post = async function(path: string, data: object) {
+export const post = async function(path: string, data?: object) {
 	const response = await fetch(api.baseURL + path, {
 		'method': 'POST',
 		'mode': 'cors',

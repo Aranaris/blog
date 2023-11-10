@@ -1,10 +1,11 @@
 import {BlogpostAPI, Post} from '../../apis/BlogpostAPI';
 import {CommentAPI, Comment} from '../../apis/CommentAPI';
 import {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 function ArchivedPost() {
 	const postID = useParams();
+	const navigate = useNavigate();
 	const [currentPost, setCurrentPost] = useState<Post>();
 	const [comments, setComments] = useState<Comment[]>([]);
 
@@ -14,6 +15,15 @@ function ArchivedPost() {
 			CommentAPI.getAllComments(postID.id).then(setComments);
 		}
 	}, [postID.id]);
+
+	function onClickDeletePost() {
+		if(postID.id) {
+			BlogpostAPI.deletePost(postID.id).then((response) => {
+				console.log(response);
+				navigate('/');
+			});
+		}
+	}
 
 	return (
 		<div className="Archived Post">
@@ -28,6 +38,7 @@ function ArchivedPost() {
 					<p key={key}>"{comment.content}" By {comment.user.username} On {comment.commentdate}</p>
 				))}
 			</section>
+			<button onClick={onClickDeletePost}>Delete Post</button>
 		</div>
 	);
 }
