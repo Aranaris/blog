@@ -37,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var corsOptions = {
 	'origin': process.env.FRONTEND_ORIGIN_URL,
 	'optionsSuccessStatus': 200,
+	'credentials': true,
 };
 
 app.use('/', indexRouter);

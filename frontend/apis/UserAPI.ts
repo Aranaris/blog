@@ -16,10 +16,9 @@ export const UserAPI = {
 		return await get(`users/${id}`);
 	},
 	'createUser': async function(data:object) {
-		return await post('users/create', data).then(response => response.json());
+		return await post('users/create', data);
 	},
 	'loginUser': async function(username:string, password:string) {
-		const response =  await post('auth/login', {'username':username, 'password':password});
-		return response;
+		return await post('auth/login', {'username':username, 'password':password});
 	},
 };

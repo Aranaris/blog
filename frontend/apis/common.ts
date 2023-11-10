@@ -13,6 +13,7 @@ export const post = async function(path: string, data: object) {
 	const response = await fetch(api.baseURL + path, {
 		'method': 'POST',
 		'mode': 'cors',
+		'credentials':'include',
 		'headers': {
 			'Content-Type': 'application/json',
 		},
@@ -20,6 +21,6 @@ export const post = async function(path: string, data: object) {
 	if (!response.ok) {
 		throw new Error('HTTP status ' + response.status);
 	} else {
-		return response;
+		return response.json();
 	}
 };

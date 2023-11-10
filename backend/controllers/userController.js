@@ -3,6 +3,7 @@ const asyncHandler = require('express-async-handler');
 const {body, validationResult} = require('express-validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const {serialize} = require('cookie');
 
 //display users
 exports.user_list = asyncHandler(async(req, res, next) => {
@@ -72,15 +73,27 @@ exports.user_authenticate_post = asyncHandler(async(req, res, next) => {
 		if (user) {
 			await bcrypt.compare(password, user.password, function(err, result) {
 				if(result) {
+					const payload = {
+						'id': user.id,
+						username,
+					};
 					const maxAge = 3 * 60 * 60;
 					const token = jwt.sign(
-						{'id': user.id, username},
+						payload,
 						process.env.JWT_SECRET,
 						{
 							'expiresIn': maxAge,
 						},
 					);
-					res.status(200).json(token);
+					const serialized = serialize('jwt', token, {
+						'maxAge': maxAge,
+						'path': '/',
+						'httpOnly': true,
+					});
+					res.set({
+						'Set-Cookie': serialized,
+					});
+					res.status(200).json(payload);
 				} else {
 					res.status(403).json(defaultError);
 				}

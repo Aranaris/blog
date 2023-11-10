@@ -22,6 +22,6 @@ export const BlogpostAPI = {
 		return await get('posts/latest');
 	},
 	'createNewPost': async function (data:object) {
-		return await post('posts/create', data).then(response => response.json());
+		return await post('posts/create', data);
 	},
 };
