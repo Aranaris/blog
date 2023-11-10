@@ -57,6 +57,10 @@ nav {
   font-weight: bold;
 }
 
+.right-nav {
+	margin-left: auto;
+}
+
 li, ul, ol{
 	list-style: none;
 	padding-left: 0;

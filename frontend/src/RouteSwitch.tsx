@@ -16,9 +16,9 @@ function RouteSwitch() {
 				<Link to="/"><img id="logo" src={logo} alt="logo" /></Link>
 				<Link to="/posts/">Archive</Link>
 				<Link to="/users/">About</Link>
-				<Link to="/login/">Log In</Link>
 				<Link to="/posts/add">Add Post</Link>
 				<Link to="/users/add">Add User</Link>
+				<Link className="right-nav" to="/login/">Log In</Link>
 			</nav>
 			<Routes>
 				<Route path="/" element={<Blog />}/>
