@@ -1,13 +1,15 @@
+import {useNavigate} from 'react-router-dom';
 import {UserAPI} from '../../apis/UserAPI';
 import '../styles/LoginPage.css';
 import React, {useState} from 'react';
 
 function LoginPage() {
+	const navigate = useNavigate();
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const onSubmitHandler = function(event:React.FormEvent<HTMLFormElement>) {
 		event?.preventDefault();
-		UserAPI.loginUser(username, password).then((response)=>console.log(response));
+		UserAPI.loginUser(username, password).then((user)=>navigate(`/users/${user.id}`));
 	};
 
 	const onUsernameChange = function(event:React.FormEvent<HTMLInputElement>) {

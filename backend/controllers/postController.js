@@ -5,6 +5,7 @@ const asyncHandler = require('express-async-handler');
 
 //display posts
 exports.post_list = asyncHandler(async(req, res, next) => {
+	console.log(req.cookies.jwt);
 	const allPosts = await Post.find().populate('user').sort({'postdate': -1}).exec();
 	res.send(allPosts);
 });

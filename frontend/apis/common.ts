@@ -5,7 +5,11 @@ export interface Error {
 }
 
 export const get = async function(path: string) {
-	const response = await fetch(api.baseURL + path, {'method': 'GET', 'mode': 'cors'});
+	const response = await fetch(api.baseURL + path, {
+		'method': 'GET',
+		'mode': 'cors',
+		'credentials':'include',
+	});
 	return await response.json();
 };
 
