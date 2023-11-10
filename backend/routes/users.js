@@ -5,11 +5,11 @@ var user_controller = require('../controllers/userController');
 /* GET users listing. */
 router.get('/', user_controller.user_list);
 
-// GET Create User Form
-router.get('/create', user_controller.user_create_get);
-
 // POST Create User
 router.post('/create', user_controller.user_create_post);
+
+// GET posts for user
+router.get('/:id/posts', user_controller.user_get_posts);
 
 // UPDATE user by id
 // DELETE user by id

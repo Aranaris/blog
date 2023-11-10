@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Post = require('../models/post');
 const asyncHandler = require('express-async-handler');
 const {body, validationResult} = require('express-validator');
 const bcrypt = require('bcrypt');
@@ -12,9 +13,6 @@ exports.user_list = asyncHandler(async(req, res, next) => {
 });
 
 //create user functions
-exports.user_create_get = asyncHandler(async(req, res, next) => {
-	res.json('Create User GET not implemented');
-});
 
 exports.user_create_post = [
 	body('username')
@@ -57,6 +55,12 @@ exports.user_delete_post = asyncHandler(async(req, res, next) => {
 exports.user_get = asyncHandler(async(req, res, next) => {
 	const user = await User.findById(req.params.id).exec();
 	res.json(user);
+});
+
+//get all posts for user
+exports.user_get_posts = asyncHandler(async(req, res, next) => {
+	const posts = await Post.find({'user':req.params.id}).exec();
+	res.json(posts);
 });
 
 //auth
@@ -103,13 +107,6 @@ exports.user_authenticate_post = asyncHandler(async(req, res, next) => {
 		}
 	}
 });
-
-// passport.authenticate('local', {
-// 	'successReturnToOrRedirect': '/auth/log-in',
-// 	'failureRedirect': '/auth/log-in',
-// 	'failureFlash': true,
-// 	'keepSessionInfo': true, // using for now, appears to be an active PR https://github.com/jaredhanson/passport/pull/941
-// });
 
 exports.user_logout_post = asyncHandler(async (req, res, next) => {
 	req.logout((err) => {

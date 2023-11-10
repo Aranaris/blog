@@ -1,3 +1,4 @@
+import {Post} from './BlogpostAPI';
 import {get, post, Error} from './common';
 
 export interface User {
@@ -21,5 +22,11 @@ export const UserAPI = {
 	},
 	'loginUser': async function(username:string, password:string):Promise<User> {
 		return await post('auth/login', {'username':username, 'password':password});
+	},
+	'deleteUser': async function(id:string):Promise<User> {
+		return await post(`users/${id}/delete`);
+	},
+	'getUserPosts': async function(id:string):Promise<Array<Post>> {
+		return await get(`users/${id}/posts`);
 	},
 };
