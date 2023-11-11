@@ -23,6 +23,9 @@ export const UserAPI = {
 	'loginUser': async function(username:string, password:string):Promise<User> {
 		return await post('auth/login', {'username':username, 'password':password});
 	},
+	'logoutUser': async function() {
+		return await post('auth/logout');
+	},
 	'deleteUser': async function(id:string):Promise<User> {
 		return await post(`users/${id}/delete`);
 	},

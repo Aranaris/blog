@@ -8,8 +8,13 @@ import LoginPage from './components/LoginPage';
 import AddPost from './components/AddPost';
 import AddUser from './components/AddUser';
 import UserProfile from './components/UserProfile';
+import {UserAPI} from '../apis/UserAPI';
+import LogoutPage from './components/LogoutPage';
 
 function RouteSwitch() {
+	function onClickLogout() {
+		UserAPI.logoutUser();
+	}
 	return (
 		<BrowserRouter>
 			<nav>
@@ -19,6 +24,7 @@ function RouteSwitch() {
 				<Link to="/posts/add">Add Post</Link>
 				<Link to="/users/add">Add User</Link>
 				<Link className="right-nav" to="/login/">Log In</Link>
+				<Link to="/logout/" onClick={onClickLogout}>Log Out</Link>
 			</nav>
 			<Routes>
 				<Route path="/" element={<Blog />}/>
@@ -27,6 +33,7 @@ function RouteSwitch() {
 				<Route path="/users/" element={<App />}/>
 				<Route path="/users/add" element={<AddUser />}/>
 				<Route path="/login/" element={<LoginPage />}/>
+				<Route path="/logout/" element={<LogoutPage />}/>
 				<Route path="/users/:id" element={<UserProfile />}></Route>
 				<Route path="/posts/:id" element={<ArchivedPost />}></Route>
 			</Routes>

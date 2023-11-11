@@ -123,10 +123,6 @@ exports.user_verify = asyncHandler(async(req, res, next) => {
 });
 
 exports.user_logout_post = asyncHandler(async (req, res, next) => {
-	req.logout((err) => {
-		if (err) {
-			return next(err);
-		}
-		res.redirect('/');
-	});
+	res.clearCookie('jwt');
+	res.json(null);
 });
