@@ -63,8 +63,8 @@ exports.user_get_posts = asyncHandler(async(req, res, next) => {
 	res.json(posts);
 });
 
-//auth
-
+//auth endpoints
+//user login
 exports.user_authenticate_post = asyncHandler(async(req, res, next) => {
 	const {username, password} = req.body;
 	const defaultError = {'message': 'Invalid Credentials'};
@@ -105,6 +105,20 @@ exports.user_authenticate_post = asyncHandler(async(req, res, next) => {
 		} else {
 			return res.status(403).json(defaultError);
 		}
+	}
+});
+
+//verify token
+exports.user_verify = asyncHandler(async(req, res, next) => {
+	if (req.cookies.jwt) {
+		const token = req.cookies.jwt;
+		if(jwt.verify(token, process.env.JWT_SECRET)) {
+			next();
+		} else {
+			res.status(403).json({'errors':{'msg':'Invalid Token, Access Denied'}});
+		}
+	} else {
+		res.status(403).json({'errors':{'msg':'Not Logged In, Access Denied'}});
 	}
 });
 

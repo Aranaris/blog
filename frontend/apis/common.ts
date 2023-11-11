@@ -10,7 +10,11 @@ export const get = async function(path: string) {
 		'mode': 'cors',
 		'credentials':'include',
 	});
-	return await response.json();
+	if (!response.ok) {
+		throw new Error('HTTP status ' + response.status);
+	} else {
+		return response.json();
+	}
 };
 
 export const post = async function(path: string, data?: object) {

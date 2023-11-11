@@ -11,11 +11,11 @@ const userSchema = new Schema({
 		'required': true,
 		'trim': true,
 		'minLength': 7,
-		validate(value) {
-			if(value.toLowerCase().includes('password')){
-				throw new mongoose.Error('Password cannot be password');
-			}
-		},
+		// validate(value) {
+		// 	if(value.toLowerCase().includes('password')){
+		// 		throw new mongoose.Error('Password cannot be password');
+		// 	}
+		// },
 		'default': '',
 	},
 	'firstname': {'type': String, 'required': true},
