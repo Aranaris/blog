@@ -22,7 +22,7 @@ const userSchema = new Schema({
 	'lastname': {'type': String},
 	'dateofbirth': {'type': Date},
 	'lastaction': {'type': Date, 'default': new Date()},
-	'role': {'type': String, 'required': true, 'default': 'new user'},
+	'role': {'type': String, 'required': true, 'enum': ['new user', 'member', 'admin'], 'default': 'new user'},
 }, opts);
 
 userSchema.pre('save', async function (next) {

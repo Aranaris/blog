@@ -8,6 +8,7 @@ function AddUser() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [userFirstName, setUserFirstName] = useState('');
+	const [userRole, setUserRole] = useState('new user');
 	const [errors, setErrors] = useState<User['errors']>([]);
 
 	function onUsernameChange(event:React.FormEvent<HTMLInputElement>) {
@@ -22,13 +23,19 @@ function AddUser() {
 		setUserFirstName(event.currentTarget.value);
 	}
 
+	function onRoleSelect(event:React.FormEvent<HTMLSelectElement>) {
+		setUserRole(event.currentTarget.value);
+	}
+
 	function onSubmitHandler (event:React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const formData = {
 			'username': username,
 			'password': password,
 			'firstname': userFirstName,
+			'role': userRole,
 		};
+
 		UserAPI.createUser(formData)
 			.then((user)=> {
 				if(typeof user.errors != 'undefined') {
@@ -55,6 +62,14 @@ function AddUser() {
 					First Name:
 				</label>
 				<input className='firstname' id='new-firstname' type='text' onChange={onFirstNameChange}></input>
+				<label htmlFor='new-userrole'>
+					Role:
+				</label>
+				<select onChange={onRoleSelect} className='role' id='new-userrole'>
+					<option value='new user'>New User</option>
+					<option value='member'>Member</option>
+					<option value='admin'>Administrator</option>
+				</select>
 				{typeof errors !== 'undefined' && errors.map((error, key) => (
 					<div key={key}>{error.msg}</div>
 				))}

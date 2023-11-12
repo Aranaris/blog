@@ -31,6 +31,7 @@ function UserProfile() {
 					<li>Username: {currentUser?.username}</li>
 					<li>First Name: {currentUser?.firstname}</li>
 					<li>Last Action: {currentUser?.lastaction}</li>
+					<li>Role: {currentUser?.role}</li>
 				</ul>
 			</section>
 			<button onClick={onClickDeleteUser}>Delete User</button>

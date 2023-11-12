@@ -76,8 +76,21 @@ header {
   font-weight: 600;
 } 
 
-input, textarea{
+input, textarea {
 	width: 60%;
+	background: #e0dede;
+	justify-content: center;
+	display: flex;
+	padding: 10px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	color: black;
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+select {
+	width: 25%;
 	background: #e0dede;
 	justify-content: center;
 	display: flex;

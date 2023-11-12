@@ -7,6 +7,7 @@ export interface User {
   username: string,
   firstname: string,
   lastaction: string,
+  role: string,
   errors?: Array<Error>,
 }
 

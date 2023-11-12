@@ -20,13 +20,13 @@ exports.user_create_post = [
 		.isLength({'min': 3})
 		.withMessage('Username must be more than 2 characters.')
 		.isAlphanumeric()
-		.withMessage('Invalid characters.'),
+		.withMessage('Username Error: Invalid characters.'),
 	body('firstname')
 		.trim()
 		.isLength({'min': 1})
 		.withMessage('First name must be specified.')
 		.isAlphanumeric()
-		.withMessage('Invalid characters.'),
+		.withMessage('First Name Error: Invalid characters.'),
 	asyncHandler(async(req, res, next) => {
 		const errors = validationResult(req);
 
@@ -34,6 +34,7 @@ exports.user_create_post = [
 			'username': req.body['username'],
 			'firstname': req.body['firstname'],
 			'password': req.body['password'],
+			'role':req.body['role'],
 		});
 		if (!errors.isEmpty()){
 			res.json({
