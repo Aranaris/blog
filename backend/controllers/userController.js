@@ -74,13 +74,14 @@ exports.user_authenticate_post = asyncHandler(async(req, res, next) => {
 			'message': 'Username or Password not present',
 		});
 	} else {
-		const user = await User.findOne({username});
+		const user = await User.findOne({username}).exec();
 		if (user) {
 			await bcrypt.compare(password, user.password, function(err, result) {
 				if(result) {
 					const payload = {
 						'id': user.id,
 						username,
+						'role':user.role,
 					};
 					const maxAge = 3 * 60 * 60;
 					const token = jwt.sign(
@@ -110,17 +111,34 @@ exports.user_authenticate_post = asyncHandler(async(req, res, next) => {
 });
 
 //verify token
-exports.user_verify = asyncHandler(async(req, res, next) => {
+exports.user_verify_loggedin = asyncHandler(async(req, res, next) => {
 	if (req.cookies.jwt) {
 		const token = req.cookies.jwt;
 		if(jwt.verify(token, process.env.JWT_SECRET)) {
 			next();
 		} else {
-			res.status(403).json({'errors':{'msg':'Invalid Token, Access Denied'}});
+			res.status(401).json({'errors':{'msg':'Invalid Token, Access Denied'}});
 		}
 	} else {
-		res.status(403).json({'errors':{'msg':'Not Logged In, Access Denied'}});
+		res.status(401).json({'errors':{'msg':'Not Logged In, Access Denied'}});
 	}
+});
+
+//verify authorization actions
+exports.user_verify_authorization = asyncHandler(async(req, res, next) => {
+	jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, function(err, decoded) {
+		if(err) {
+			res.status(403).json({err});
+		} else {
+			if (req.params.id === decoded.id) {
+				next();
+			} else if (decoded.role === 'admin') {
+				next();
+			} else {
+				res.status(403).json({'errors':{'msg':'Invalid auth'}});
+			}
+		}
+	});
 });
 
 exports.user_logout_post = asyncHandler(async (req, res, next) => {
