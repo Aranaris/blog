@@ -114,11 +114,12 @@ exports.user_authenticate_post = asyncHandler(async(req, res, next) => {
 exports.user_verify_loggedin = asyncHandler(async(req, res, next) => {
 	if (req.cookies.jwt) {
 		const token = req.cookies.jwt;
-		if(jwt.verify(token, process.env.JWT_SECRET)) {
-			next();
-		} else {
-			res.status(401).json({'errors':{'msg':'Invalid Token, Access Denied'}});
-		}
+		jwt.verify(token, process.env.JWT_SECRET, function(err, payload) {
+			if(err) {
+				res.status(401).json(err);
+			} else {
+				next();
+			}});
 	} else {
 		res.status(401).json({'errors':{'msg':'Not Logged In, Access Denied'}});
 	}
