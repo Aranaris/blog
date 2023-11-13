@@ -131,9 +131,7 @@ exports.user_verify_authorization = asyncHandler(async(req, res, next) => {
 		if(err) {
 			res.status(403).json({err});
 		} else {
-			if (req.params.id === decoded.id) {
-				next();
-			} else if (decoded.role === 'admin') {
+			if (req.params.id === decoded.id || decoded.role === 'admin') {
 				next();
 			} else {
 				res.status(403).json({'errors':{'msg':'Invalid auth'}});

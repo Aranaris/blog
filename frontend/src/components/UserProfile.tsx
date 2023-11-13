@@ -12,9 +12,7 @@ function UserProfile() {
 	useEffect(() => {
 		if (typeof userID.id !== 'undefined') {
 			UserAPI.getUserByID(userID.id).then(setCurrentUser);
-			UserAPI.getUserPosts(userID.id).then((posts) => {
-				setPostList(posts);
-			});
+			UserAPI.getUserPosts(userID.id).then(setPostList);
 		}
 	}, [userID.id]);
 
@@ -23,15 +21,21 @@ function UserProfile() {
 			UserAPI.deleteUser(userID.id).then(() => navigate('/'));
 		}
 	}
+	if (!currentUser) {
+		return (
+			<div>
+			</div>
+		);
+	}
 	return (
 		<div className="User Profile">
-			<header>{currentUser?.username}'s Profile</header>
+			<header>{currentUser.username}'s Profile</header>
 			<section>
 				<ul>
-					<li>Username: {currentUser?.username}</li>
-					<li>First Name: {currentUser?.firstname}</li>
-					<li>Last Action: {currentUser?.lastaction}</li>
-					<li>Role: {currentUser?.role}</li>
+					<li>Username: {currentUser.username}</li>
+					<li>First Name: {currentUser.firstname}</li>
+					<li>Last Action: {currentUser.lastaction}</li>
+					<li>Role: {currentUser.role}</li>
 				</ul>
 			</section>
 			<button onClick={onClickDeleteUser}>Delete User</button>
