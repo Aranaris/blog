@@ -1,6 +1,5 @@
 const Post = require('../models/post');
 const Comment = require('../models/comment');
-const User = require('../models/user');
 const asyncHandler = require('express-async-handler');
 
 //display posts
@@ -22,9 +21,8 @@ exports.post_get_latest = asyncHandler(async(req, res, next) => {
 });
 
 exports.post_create_post = asyncHandler(async(req, res, next) => {
-	const user = await User.findOne({'username': 'testuser'}).exec();
 	const post = new Post({
-		'user': user,
+		'user': req.user.id,
 		'title': req.body.title,
 		'content': req.body.content,
 		'status': 'draft',
