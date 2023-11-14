@@ -48,9 +48,13 @@ exports.user_create_post = [
 
 //update or remove user
 exports.user_delete_post = asyncHandler(async(req, res, next) => {
-	const user = await User.findById(req.params.id).exec();
-	await User.findByIdAndRemove(req.params.id);
-	res.json(user);
+	if (req.user.role === 'admin') {
+		const user = await User.findById(req.params.id).exec();
+		await User.findByIdAndRemove(req.params.id);
+		res.json(user);
+	} else {
+		res.status(403).json({'errors':{'msg':'Invalid Authz (Not Admin)'}});
+	}
 });
 
 exports.user_get = asyncHandler(async(req, res, next) => {
@@ -116,7 +120,7 @@ exports.user_verify_authorization = asyncHandler(async(req, res, next) => {
 		if(err) {
 			res.status(401).json({'errors':{'msg':'Invalid Token'}});
 		} else {
-			req.user = await User.findOne({'id': decoded.id}).exec();
+			req.user = await User.findOne({'_id': decoded.id}).exec();
 			next();
 		}
 	});
