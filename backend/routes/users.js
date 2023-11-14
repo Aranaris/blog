@@ -3,19 +3,19 @@ var router = express.Router();
 var user_controller = require('../controllers/userController');
 
 /* GET users listing. */
-router.get('/', user_controller.user_verify_loggedin, user_controller.user_list);
+router.get('/', user_controller.user_verify_authorization, user_controller.user_list);
 
 // POST Create User
-router.post('/create', user_controller.user_verify_loggedin, user_controller.user_create_post);
+router.post('/create', user_controller.user_verify_authorization, user_controller.user_create_post);
 
 // GET posts for user
-router.get('/:id/posts', user_controller.user_verify_loggedin, user_controller.user_get_posts);
+router.get('/:id/posts', user_controller.user_verify_authorization, user_controller.user_get_posts);
 
 // UPDATE user by id
 // DELETE user by id
-router.post('/:id/delete', user_controller.user_verify_loggedin, user_controller.user_verify_authorization, user_controller.user_delete_post);
+router.post('/:id/delete', user_controller.user_verify_authorization, user_controller.user_delete_post);
 
 // GET user by id
-router.get('/:id', user_controller.user_verify_loggedin, user_controller.user_get);
+router.get('/:id', user_controller.user_verify_authorization, user_controller.user_get);
 
 module.exports = router;

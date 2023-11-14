@@ -1,4 +1,4 @@
-import {UserAPI,User} from '../../apis/UserAPI';
+import {UserAPI, User} from '../../apis/UserAPI';
 import {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {Post} from '../../apis/BlogpostAPI';

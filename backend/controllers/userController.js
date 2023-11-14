@@ -110,32 +110,14 @@ exports.user_authenticate_post = asyncHandler(async(req, res, next) => {
 	}
 });
 
-//verify token
-exports.user_verify_loggedin = asyncHandler(async(req, res, next) => {
-	if (req.cookies.jwt) {
-		const token = req.cookies.jwt;
-		jwt.verify(token, process.env.JWT_SECRET, function(err, payload) {
-			if(err) {
-				res.status(401).json(err);
-			} else {
-				next();
-			}});
-	} else {
-		res.status(401).json({'errors':{'msg':'Not Logged In, Access Denied'}});
-	}
-});
-
 //verify authorization actions
 exports.user_verify_authorization = asyncHandler(async(req, res, next) => {
-	jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, function(err, decoded) {
+	jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, async function(err, decoded) {
 		if(err) {
-			res.status(403).json({err});
+			res.status(401).json({'errors':{'msg':'Invalid Token'}});
 		} else {
-			if (req.params.id === decoded.id || decoded.role === 'admin') {
-				next();
-			} else {
-				res.status(403).json({'errors':{'msg':'Invalid auth'}});
-			}
+			req.user = await User.findOne({'id': decoded.id}).exec();
+			next();
 		}
 	});
 });
