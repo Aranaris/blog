@@ -33,8 +33,13 @@ exports.post_create_post = asyncHandler(async(req, res, next) => {
 
 //update or remove post
 exports.post_delete_post = asyncHandler(async(req, res, next) => {
-	const post = await Post.findByIdAndDelete(req.params.id).exec();
-	res.json(post);
+	const post = await Post.findById(req.params.id).populate('user').exec();
+	if (req.user.role === 'admin' || req.user.id === post.user.id) {
+		post.deleteOne();
+		res.json(post);
+	}	else {
+		res.status(403).json({'errors':{'msg':'Invalid Authz'}});
+	}
 });
 
 //getting comments for post
